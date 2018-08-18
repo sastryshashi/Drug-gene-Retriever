@@ -1,0 +1,19 @@
+{
+  "name": "drug-gene-retriever",
+  "version": "1.0.0",
+  "description": "drug-gene-retriever project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sastryshashi/Drug-gene-Retriever.git"
+  },
+  "author": "Sastry, Shashidhar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sastryshashi/Drug-gene-Retriever/issues"
+  },
+  "homepage": "https://github.com/sastryshashi/Drug-gene-Retriever#readme"
+}
