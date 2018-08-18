@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/sastryshashi/Drug-gene-Retriever/issues"
   },
-  "homepage": "https://github.com/sastryshashi/Drug-gene-Retriever#readme"
+  "homepage": "https://github.com/sastryshashi/Drug-gene-Retriever#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.3"
+  }
 }
