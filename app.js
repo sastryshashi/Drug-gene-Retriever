@@ -3,7 +3,8 @@ const express     = require ("express"),
       request     = require("request"),
       rp          = require ("request-promise"),
       bodyParser  = require("body-parser"),
-      convert     = require('xml-js');
+      convert     = require('xml-js'),
+      DOMParser   = require('xmldom').DOMParser;;
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -45,6 +46,7 @@ app.get ("/searchResults", (req, res) => {
 This is a temporary function to test retrieval of {title: title, abstract: abstract} from getArticleDetails(id).
 */
 app.get ("/idsTest", (req, res) => {
+  // var ids = ["30145211"];
   var ids = ["30145211", "30128536", "30086764", "30079159", "30015382", "30006610", "29976630", "29973717", "29873142", "29844838", "29785153",
               "29731985", "29727754", "29713086", "29649003", "29580810", "29559847", "29545475", "29414022", "29214031"];
   var listOfEntries = [], entry;
@@ -61,22 +63,16 @@ app.get ("/idsTest", (req, res) => {
 async function getArticleDetails (id) {
   var apiPath = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + id +"&rettype=abstract&retmode=XML";
   var title, abstract;
-
   await rp (apiPath)
     .then ((body) => {
       var jsonString, json;
-      jsonString = convert.xml2json(body);
-      json = JSON.parse(jsonString);
-      title = (json.elements[1].elements[0].elements[0].elements[2].elements[1].elements[0].text);
-      (json.elements[1].elements[0].elements[0].elements[2].elements).forEach ((entry) => {
-        if (entry.name == "Abstract")
-          abstract = entry.elements[0].elements[0].text;
-      });
+      var doc = new DOMParser().parseFromString (body, 'text/xml');
+      abstract = (doc.documentElement.getElementsByTagName("AbstractText")[0].childNodes[0].data);
+      title = (doc.documentElement.getElementsByTagName("ArticleTitle")[0].childNodes[0].data);
     })
     .catch ((err) => {
       console.log ("Could not retrieve something");
     });
-
     return {title: title, abstract: abstract};
 }
 
