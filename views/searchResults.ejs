@@ -1,0 +1,15 @@
+<% include partials/header %>
+<div class = "container">
+  <div class="jumbotron">
+    <h1>Search Results</h1>
+  </div>
+  <ul>
+    <% values.forEach (value => { %>
+      <li>
+        <strong> <%= value.title %> </strong>
+        <p> <%= value.abstract %> </p>
+      </li>
+    <% }); %>
+  </ul>
+</div>
+<% include partials/footer %>
