@@ -46,26 +46,23 @@ app.get ("/searchResults", (req, res) => {
 This is a temporary function to test retrieval of {title: title, abstract: abstract} from getArticleDetails(id).
 */
 app.get ("/idsTest", (req, res) => {
-  var ids = ["30128536"];
-  // var ids = ["30145211"];
   // var ids = ["30145211", "30128536", "30086764", "30079159", "30015382", "30006610", "29976630", "29973717", "29873142", "29844838", "29785153",
-  //             "29731985", "29727754", "29713086", "29649003", "29580810", "29559847", "29545475", "29414022", "29214031"];
-  var listOfEntries = [], entry;
-  ids.forEach (async (id) => {
-    entry = await getArticleDetails(id);
-    listOfEntries.push(entry);
-  });
-  setTimeout((function() {res.send(listOfEntries)}), 8000);
+  //            "29731985", "29727754", "29713086", "29649003", "29580810", "29559847", "29545475", "29414022", "29214031"];
+  var ids = ["30145211", "30128536", "30086764"];
+  let promises = ids.map(id => getArticleDetails(id));
+  Promise.all(promises)
+  .then(values => {
+    res.send(values);
+  })
+  .catch (err => console.error ("Error: ", err));
 });
-
 
 // Works for 1 id
 app.get ("/idTest", (req, res) => {
-  function successCallback (entry) {
-    console.log (entry);
+  let successCallback = function (entry) {
     res.send (entry);
   }
-  getArticleDetails ('30128536').then (successCallback);
+  getArticleDetails ('30015382').then (successCallback);
 });
 
 
@@ -85,8 +82,7 @@ async function getArticleDetails (id) {
     .catch ((err) => {
       console.log ("Could not retrieve something for" + id);
     });
-  console.log (title);
-  return {title: title, abstract: abstract};
+  return {title: title, abstract: abstract, id: id};
 }
 
 
