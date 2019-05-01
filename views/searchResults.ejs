@@ -7,9 +7,30 @@
     <% values.forEach (value => { %>
       <li>
         <strong> <%= value.title %> </strong>
-        <p> <%= value.abstract %> </p>
+        <p class='abstractText' > <%= value.abstract %> </p>
       </li>
     <% }); %>
   </ul>
 </div>
+
+<style>
+  .tempClass {
+    color: blue;
+  }
+</style>
+
+<script type="text/javascript">
+
+  function highlightText() {
+    $('.abstractText').each (function() {
+    	$(this).addClass("tempClass");
+      $this = $(this).text().split(' ');
+      $this.forEach(function() {
+        console.log('a');
+      })
+    });
+  }
+
+  $(document).ready (highlightText);
+</script>
 <% include partials/footer %>
