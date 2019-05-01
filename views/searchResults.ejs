@@ -23,11 +23,17 @@
 
   function highlightText() {
     $('.abstractText').each (function() {
-    	$(this).addClass("tempClass");
       $this = $(this).text().split(' ');
-      $this.forEach(function() {
-        console.log('a');
+      var str = '';
+      $this.forEach(function(value) {
+          if (value == "patterned") {
+            console.log(value)
+            str = str + " <span class=tempClass>" + value + "</span>";
+          }
+          else
+            str = str + " " + value;
       })
+      $(this).html(str);
     });
   }
 
