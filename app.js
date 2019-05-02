@@ -1,8 +1,10 @@
 const express     = require ("express"),
       app         = express(),
-      routes      = require('./router');
+      routes      = require('./router'),
+      path        = require('path');
 
 app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get ("/", (req, res) => {
   res.render("Index");

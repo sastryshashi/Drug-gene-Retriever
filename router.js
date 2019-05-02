@@ -5,7 +5,27 @@ const express     = require ('express'),
       rp          = require ("request-promise"),
       bodyParser  = require("body-parser"),
       convert     = require('xml-js'),
-      DOMParser   = require('xmldom').DOMParser;
+      DOMParser   = require('xmldom').DOMParser,
+      mongoose    = require('mongoose');
+
+
+mongoose.connect('mongodb://localhost/drugGene', {useNewUrlParser: true});
+
+// SCHEMA SETUP
+var geneSchema = new mongoose.Schema({
+  name: String
+});
+
+var Gene = mongoose.model('Gene', geneSchema);
+//
+// Gene.create (
+//   {
+//     name: 'CYP2B1'
+//   }, function (err, gene) {
+//     if (err) {console.log (err);}
+//     else {console.log("NEWLY ADDED GENE: " + gene);}
+//   }
+// );
 
 //Search results page
 router.get ("/", (req, res) => {

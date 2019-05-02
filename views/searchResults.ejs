@@ -1,4 +1,6 @@
 <% include partials/header %>
+<script type="text/javascript" src="/js/searchResults.js"></script>
+
 <div class = "container">
   <div class="jumbotron">
     <h1>Search Results</h1>
@@ -19,24 +21,4 @@
   }
 </style>
 
-<script type="text/javascript">
-
-  function highlightText() {
-    $('.abstractText').each (function() {
-      $this = $(this).text().split(' ');
-      var str = '';
-      $this.forEach(function(value) {
-          if (value == "patterned") {
-            console.log(value)
-            str = str + " <span class=tempClass>" + value + "</span>";
-          }
-          else
-            str = str + " " + value;
-      })
-      $(this).html(str);
-    });
-  }
-
-  $(document).ready (highlightText);
-</script>
 <% include partials/footer %>
