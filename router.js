@@ -59,7 +59,7 @@ function getDataFromIDs (res, ids) {
   let bleh = "asdf";
   Promise.all(promises)
   .then(values => {
-    res.render("searchResults", {values: values});
+    res.render("searchResults", {values: values, bleh: "bleh"});
   })
   .catch (err => console.error ("Error: ", err));
 }

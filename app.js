@@ -15,6 +15,6 @@ app.use('/searchResults', routes);
 //------------------
 // Tell express to listen for requests (start server)
 //------------------
-app.listen (8000, () => {
+app.listen (process.env.PORT || 8000, () => {
   console.log("The app server has started");
 });
