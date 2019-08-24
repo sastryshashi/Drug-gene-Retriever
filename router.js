@@ -8,7 +8,7 @@ const express     = require ('express'),
       DOMParser   = require('xmldom').DOMParser,
       mongoose    = require('mongoose');
 
-
+app.set("view engine", "ejs");
 mongoose.connect('mongodb://localhost/drugGene', {useNewUrlParser: true});
 
 // SCHEMA SETUP
@@ -26,6 +26,8 @@ var Gene = mongoose.model('Gene', geneSchema);
 //     else {console.log("NEWLY ADDED GENE: " + gene);}
 //   }
 // );
+
+var geneNames = ['AB1', 'AB2', 'CYP2B1']; //get this list from the database
 
 //Search results page
 router.get ("/", (req, res) => {
@@ -59,7 +61,7 @@ function getDataFromIDs (res, ids) {
   let bleh = "asdf";
   Promise.all(promises)
   .then(values => {
-    res.render("searchResults", {values: values, bleh: "bleh"});
+    res.render("searchResults", {values: values, geneNames: geneNames});
   })
   .catch (err => console.error ("Error: ", err));
 }
