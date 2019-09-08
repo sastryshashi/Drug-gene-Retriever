@@ -20,6 +20,7 @@
 
 <script>
 function highlightText() {
+  <% console.log (geneNames); %>
   var geneNames = "<%= geneNames; %>".split(",");
   var drugNames = ['Abraxane', 'Gemzar', 'Onxol', 'Nanoparticles'];
   $('.abstractText').each (function() {

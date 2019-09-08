@@ -12,22 +12,37 @@ app.set("view engine", "ejs");
 mongoose.connect('mongodb://localhost/drugGene', {useNewUrlParser: true});
 
 // SCHEMA SETUP
-var geneSchema = new mongoose.Schema({
-  name: String
-});
+var geneSchema = new mongoose.Schema({ name: String });
 
-var Gene = mongoose.model('Gene', geneSchema);
-//
-// Gene.create (
+var geneModel = mongoose.model('Gene', geneSchema);
+
+// geneModel.create (
 //   {
-//     name: 'CYP2B1'
+//     name: 'enzyme'
 //   }, function (err, gene) {
 //     if (err) {console.log (err);}
 //     else {console.log("NEWLY ADDED GENE: " + gene);}
 //   }
 // );
 
-var geneNames = ['AB1', 'AB2', 'CYP2B1']; //get this list from the database
+// geneModel.find({}, 'name', function (err, genes) {
+//   if (err) console.log ("There has been an error");
+//   else console.log (genes);
+// });
+
+async function getGeneNames () {
+  var results = await geneModel.find();
+  var geneNames = [];
+  results.forEach (gene => {
+    geneNames.push(gene.name);
+  });
+  return geneNames;
+}
+
+var geneNames;
+getGeneNames()
+.then (val => { geneNames = val; });
+setTimeout (() => { console.log (geneNames); }, 3000);
 
 //Search results page
 router.get ("/", (req, res) => {
